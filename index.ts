@@ -8,7 +8,10 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { promises as fs } from "fs";
 import path from "path";
-const fileURLToPath = Bun.fileURLToPath;
+const fileURLToPath =
+  typeof Bun !== "undefined" && process.versions.bun
+    ? Bun.fileURLToPath
+    : (await import("url")).fileURLToPath;
 
 // Define memory file path using environment variable with fallback
 const defaultMemoryPath = path.join(
@@ -581,7 +584,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  Bun.write(
+  await fs.writeFile(
     "/Users/quanle96/Documents/mcp-servers/memory/log.txt",
     `Memory file path: ${MEMORY_FILE_PATH}`
   );
