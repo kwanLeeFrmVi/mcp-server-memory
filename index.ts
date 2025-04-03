@@ -25,7 +25,6 @@ const MEMORY_FILE_PATH = process.env.MEMORY_FILE_PATH
         process.env.MEMORY_FILE_PATH
       )
   : defaultMemoryPath;
-
 // We are storing our memory using entities, relations, and observations in a graph structure
 interface Entity {
   name: string;
@@ -582,6 +581,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
+  Bun.write(
+    "/Users/quanle96/Documents/mcp-servers/memory/log.txt",
+    `Memory file path: ${MEMORY_FILE_PATH}`
+  );
+
   console.error("Knowledge Graph MCP Server running on stdio");
 }
 

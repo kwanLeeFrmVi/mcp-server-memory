@@ -16,6 +16,7 @@
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
     "build:bun": "bun build ./index.ts --outdir ./dist --format esm --target bun --minify && shx chmod +x dist/*.js",
+    "start": "bun run dist/index.js",
     "prepare": "npm run build",
     "watch": "tsc --watch"
   },
