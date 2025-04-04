@@ -585,6 +585,8 @@ async function main() {
   try {
     const transport = new StdioServerTransport();
     await server.connect(transport);
+
+    console.error("Memory MCP Server running on stdio");
     await fs.writeFile(
       "/Users/quanle96/Documents/mcp-servers/memory/log.txt",
       `Memory file path: ${MEMORY_FILE_PATH}`
