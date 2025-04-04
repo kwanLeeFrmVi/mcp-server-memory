@@ -582,14 +582,17 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 async function main() {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  await fs.writeFile(
-    "/Users/quanle96/Documents/mcp-servers/memory/log.txt",
-    `Memory file path: ${MEMORY_FILE_PATH}`
-  );
-
-  console.error("Knowledge Graph MCP Server running on stdio");
+  try {
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    await fs.writeFile(
+      "/Users/quanle96/Documents/mcp-servers/memory/log.txt",
+      `Memory file path: ${MEMORY_FILE_PATH}`
+    );
+  } catch (error) {
+    console.error("Error starting server:", error);
+    process.exit(1);
+  }
 }
 
 main().catch((error) => {
